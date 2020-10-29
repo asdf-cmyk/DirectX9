@@ -8,6 +8,7 @@
 
 PopUpUI::PopUpUI()
 	: m_pRoot(NULL)
+	, m_IsActive(false)
 {
 }
 
@@ -46,6 +47,7 @@ void PopUpUI::SetUp()
 	Button_B* pButton_B1 = new Button_B;
 	pButton_B1->SetUp("UI", "btn-rewind.png");
 	pButton_B1->SetUp2("UI", "btn-main-menu.png");
+	pButton_B1->SetPopUpActive(&(m_IsActive = true));
 	pButton_B1->SetParentWorldTM(&m_matWorld);
 	pButton_B1->SetPosDelta({ 390, 80 });
 	m_pRoot->AddChild(pButton_B1);
@@ -65,6 +67,7 @@ void PopUpUI::Render()
 
 void PopUpUI::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam, bool& IsCursor)
 {
-	m_pRoot->WndProc(hWnd, message, wParam, lParam, IsCursor);
+	if(m_pRoot)
+		m_pRoot->WndProc(hWnd, message, wParam, lParam, IsCursor);
 
 }

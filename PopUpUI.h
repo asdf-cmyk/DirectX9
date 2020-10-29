@@ -6,6 +6,9 @@ class PopUpUI
 	//Synthesize(UISprite*, m_pRoot, Root);
 	UISprite*			m_pRoot;
 	D3DXMATRIXA16		m_matWorld;
+
+	//bool				m_IsActive;
+	Synthesize(bool, m_IsActive, IsActive);
 public:
 	PopUpUI();
 	~PopUpUI();

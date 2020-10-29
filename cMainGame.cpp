@@ -249,10 +249,12 @@ void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
 	bool IsCursorOnUI = false;
 	if (m_pPopUpUI->GetRoot())
-		m_pPopUpUI->WndProc(hWnd, message, wParam, lParam, IsCursorOnUI);
+		if (m_pPopUpUI->GetIsActive())
+			m_pPopUpUI->WndProc(hWnd, message, wParam, lParam, IsCursorOnUI);
 
-	test = m_pPopUpUI->GetRoot();
-	if (test->GetUI()->IsCursorOn(hWnd, message, wParam, lParam)) return;
+	if (m_pPopUpUI->GetRoot()->GetUI()->IsCursorOn(hWnd, message, wParam, lParam))
+		if (m_pPopUpUI->GetIsActive())
+			return;
 
 	//if (IsCursorOnUI) return;
 
@@ -1024,14 +1026,16 @@ void cMainGame::Setup_UI()
 void cMainGame::UI_Update()
 {
 	if (m_pPopUpUI)
-		m_pPopUpUI->Update();
+		if (m_pPopUpUI->GetIsActive())
+			m_pPopUpUI->Update();
 }
 
 void cMainGame::UI_Render()
 {
 	//m_pPopUp->Render();
 	if(m_pPopUpUI)
-		m_pPopUpUI->Render();
+		if(m_pPopUpUI->GetIsActive())
+			m_pPopUpUI->Render();
 }
 
 void cMainGame::Setup_Particle()
