@@ -109,7 +109,7 @@ void cGrid::Render()
 	g_pD3DDevice->DrawPrimitiveUP(D3DPT_LINELIST,
 		m_vecVertex.size() / 2, &m_vecVertex[0], sizeof(ST_PC_VERTEX));
 
-	for each (auto p in m_vecPyramid)
-		p->Render(); 
+	//for each (auto p in m_vecPyramid)
+	//	p->Render(); 
 
 }

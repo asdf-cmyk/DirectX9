@@ -43,6 +43,12 @@ private :
 	UISprite* test;
 
 	cSkinnedMesh*			m_pSkinnedMesh;
+	
+	LPD3DXEFFECT			m_pShader;
+	bool LoadAssets();
+	LPD3DXEFFECT LoadShader(const char * filename);
+
+	LPDIRECT3DTEXTURE9 g_pShaderTexture = NULL;
 public :
 	void Setup(); 
 	void Update(); 
@@ -163,5 +169,9 @@ public :
 	void Update_Particle();
 	void Particle_Render();
 	// << :
+
+	void SetBillboard();
+
 };
+
 

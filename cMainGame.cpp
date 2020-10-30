@@ -54,6 +54,7 @@ cMainGame::cMainGame()
 	, m_pTex2(NULL)
 	, m_pTex3(NULL)
 	, m_nType(-1)
+	, m_pShader(NULL)
 {
 }
 
@@ -81,6 +82,7 @@ cMainGame::~cMainGame()
 	SafeRelease(m_p3DText);
 	SafeRelease(m_pSprite);
 	SafeRelease(m_pTextureUI);
+	SafeRelease(m_pShader);
 
 	for each(auto p in m_vecObjMtlTex)
 		SafeRelease(p); 
@@ -95,6 +97,52 @@ cMainGame::~cMainGame()
 	g_pObjectManager->Destroy(); 
 
 	g_pDeviceManager->Destroy();
+}
+
+bool cMainGame::LoadAssets()
+{
+	// : texture
+
+	// : shader
+	m_pShader = LoadShader("Shader/TextureMapping.fx");
+	if (!m_pShader) return false;
+	
+	// : model
+	
+	return true;
+}
+
+LPD3DXEFFECT cMainGame::LoadShader(const char* filename)
+{
+	LPD3DXEFFECT ret = NULL;
+
+	LPD3DXBUFFER pError = NULL;
+	DWORD dwShaderFlags = 0;
+
+#if _DEBUG
+	dwShaderFlags |= D3DXSHADER_DEBUG;
+#endif
+
+	D3DXCreateEffectFromFileA(g_pD3DDevice, filename,
+		NULL, NULL, dwShaderFlags, NULL, &ret, &pError);
+
+	// 쉐이더 로딩에 실패한 경우 output창에 쉐이더
+	// 컴파일 에러를 출력한다.
+	if (!ret && pError)
+	{
+		/*int size = pError->GetBufferSize();
+		void *ack = pError->GetBufferPointer();
+
+		if (ack)
+		{
+			char* str = new char[size];
+			sprintf(str, (const char*)ack, size);
+			OutputDebugString(str);
+			delete[] str;
+		}*/
+	}
+
+	return ret;
 }
 
 void cMainGame::Setup()
@@ -119,7 +167,7 @@ void cMainGame::Setup()
 		m_pRootFrame = l.Load("woman/woman_01_all.ASE"); 
 	}*/
 
-	//Setup_Particle();
+	Setup_Particle();
 	Setup_MultiTexture();
 
 	//Setup_Texture(); 
@@ -139,8 +187,10 @@ void cMainGame::Setup()
 	/*m_pXFileLoader = new XFileLoader;
 	m_pXFileLoader->Setup();*/
 
-	/*m_pSkinnedMesh = new cSkinnedMesh;
-	m_pSkinnedMesh->Setup("Zealot", "zealot.X");*/
+	m_pSkinnedMesh = new cSkinnedMesh;
+	m_pSkinnedMesh->Setup("Zealot", "zealot.X");
+
+	LoadAssets();
 }
 
 void cMainGame::Update()
@@ -151,7 +201,7 @@ void cMainGame::Update()
 	if (m_pCubeMan)
 		m_pCubeMan->Update(m_pMap);
 
-	/*g_pTimeManager->Update();
+	g_pTimeManager->Update();
 	if (m_pSkinnedMesh)
 	{
 		m_pSkinnedMesh->Update();
@@ -162,7 +212,7 @@ void cMainGame::Update()
 			animTime = 0.0f;
 			animStart = 0.0f;
 		}
-	}*/
+	}
 
 	/*if (m_pFrustum)
 		m_pFrustum->Update();*/
@@ -171,7 +221,7 @@ void cMainGame::Update()
 		m_pCamera->Update(); 
 	//FrustumCulling();
 
-	//Update_Particle();
+	Update_Particle();
 	Update_MultiTexture();
 
 	/*if (m_pHoldZealot)
@@ -204,10 +254,11 @@ void cMainGame::Render()
 
 	g_pD3DDevice->BeginScene();
 
-	//if (m_pGrid)
-	//	m_pGrid->Render();
+	if (m_pGrid)
+		m_pGrid->Render();
 
-	//Particle_Render();
+	Particle_Render();
+	
 	MultiTexture_Render();
 
 	//OBB_Render();
@@ -237,7 +288,7 @@ void cMainGame::Render()
 	}*/
 
 	//m_pXFileLoader->Display();
-	//SkinnedMesh_Render();
+	SkinnedMesh_Render();
 
 	UI_Render();
 
@@ -287,14 +338,14 @@ void cMainGame::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				}
 			}*/
 		}
-		//static int n = 2;
+		static int n = 2;
 
-		//animTime = m_pSkinnedMesh->GetAnimTime(n);
+		animTime = m_pSkinnedMesh->GetAnimTime(n);
 
+		m_pSkinnedMesh->SetAnimationIndexBlend(n);
+		animStart = (float)GetTickCount();
+			
 		//m_pSkinnedMesh->SetAnimationIndex(++n);
-
-		//m_pSkinnedMesh->SetAnimationIndexBlend(n);
-		//animStart = (float)GetTickCount();
 	}
 		/*{
 			cRay r = cRay::RayAtWorldSpace(LOWORD(lParam), HIWORD(lParam));
@@ -474,6 +525,8 @@ void cMainGame::MultiTexture_Render()
 	case 0:		MultiTexture_Render0(); break;
 	default:	MultiTexture_Render_default(); break;
 	}
+
+	SetBillboard();
 
 	g_pD3DDevice->SetFVF(ST_PT_VERTEX::FVF);
 	g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
@@ -765,8 +818,38 @@ void cMainGame::SkinnedMesh_Render()
 	D3DXMATRIXA16 matWorld;
 	D3DXMatrixIdentity(&matWorld);
 	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-	if (m_pSkinnedMesh)
-		m_pSkinnedMesh->Render(NULL);
+
+	if(m_pShader)
+	{
+		D3DXMATRIXA16 matView, matProjection;
+		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+		m_pShader->SetMatrix("gWorldMatrix", &matWorld);
+		m_pShader->SetMatrix("gViewMatrix", &matView);
+		m_pShader->SetMatrix("gProjectionMatrix", &matProjection);
+		D3DXCOLOR	color(1, 1, 0, 1);
+		m_pShader->SetValue("gColor", &color, sizeof(D3DXVECTOR4));
+
+		UINT numPasses = 0;
+		m_pShader->Begin(&numPasses, NULL);
+		{
+			for (UINT i = 0; i < numPasses; ++i)
+			{
+				m_pShader->BeginPass(i);
+				{
+					if (m_pSkinnedMesh)
+						m_pSkinnedMesh->Render(NULL);
+				}
+				m_pShader->EndPass();
+			}
+			m_pShader->End();
+		}
+	}
+	else
+	{
+		if (m_pSkinnedMesh)
+			m_pSkinnedMesh->Render(NULL);
+	}
 }
 
 void cMainGame::Setup_HeightMap()
@@ -775,88 +858,6 @@ void cMainGame::Setup_HeightMap()
 	pMap->Setup("HeightMapData/", "HeightMap.raw", "terrain.jpg");
 	m_pMap = pMap;
 }
-
-/*void cMainGame::Setup_SphereGroup()
-{
-	for (int i = 0; i <= 30; i++)
-	{
-		ST_SPHERE s;
-		s.fRadius = 0.5f;
-		s.vCenter = D3DXVECTOR3(0, 0, -15 + 1 * i);
-		m_vecSphere2.push_back(s);
-	}
-}
-
-void cMainGame::SphereGroup_Render()
-{
-	D3DXMATRIXA16 matWorld;
-	g_pD3DDevice->SetFVF(ST_PN_VERTEX::FVF);
-	D3DXMatrixIdentity(&matWorld);
-	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
-
-
-	D3DXPLANE frustumPlane[6];
-
-	RECT rc;
-	GetClientRect(g_hWnd, &rc);
-	float x = rc.right / 2.0f;
-	float y = rc.bottom / 2.0f;
-
-	D3DXPlaneFromPoints(OUT &frustumPlane[0],
-		&D3DXVECTOR3(m_pCamera->GetEye().x, m_pCamera->GetEye().y, 0.0f),
-		&D3DXVECTOR3(-x, -y, 1.0f),
-		&D3DXVECTOR3(-x, y, 1.0f));
-	D3DXPlaneFromPoints(OUT &frustumPlane[1],
-		&D3DXVECTOR3(m_pCamera->GetEye().x, m_pCamera->GetEye().y, 0.0f),
-		&D3DXVECTOR3(x, y, 1.0f),
-		&D3DXVECTOR3(x, -y, 1.0f));
-
-
-	D3DXVECTOR3 UnProjVC;
-
-	for (int i = 0; i < m_vecSphere2.size(); i++)
-	{
-		D3DXMatrixIdentity(&matWorld);
-		matWorld._41 = m_vecSphere2[i].vCenter.x;
-		matWorld._42 = m_vecSphere2[i].vCenter.y;
-		matWorld._43 = m_vecSphere2[i].vCenter.z;
-		g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
-		//m_pMeshSphere->DrawSubset(0);
-
-		D3DXVec3Unproject(OUT &UnProjVC, IN &m_vecSphere2[i].vCenter, NULL,
-			&m_pCamera->GetMatProj(), &m_pCamera->GetMatView(), NULL);
-		if (D3DXPlaneDotCoord(&frustumPlane[0], &UnProjVC) < 0 &&
-			D3DXPlaneDotCoord(&frustumPlane[1], &UnProjVC) < 0)
-		{
-			m_pMeshSphere->DrawSubset(0);
-		}
-	}
-}
-
-void cMainGame::FrustumCulling()
-{
-	D3DXPLANE frustumPlane;
-
-	RECT rc;
-	GetClientRect(g_hWnd, &rc);
-	float x = rc.right / 2.0f;
-	float y = rc.bottom / 2.0f;
-
-	D3DXPlaneFromPoints(OUT &frustumPlane,
-		&D3DXVECTOR3(m_pCamera->GetEye().x, m_pCamera->GetEye().y, 0.0f),
-		&D3DXVECTOR3(-x, y, 1000.0f),
-		&D3DXVECTOR3(-x, -y, 1000.0f));
-
-
-	D3DXVECTOR3 UnProjVC;
-	for (unsigned int i = 0; i < m_vecSphere2.size(); i++)
-	{
-		D3DXVec3Unproject(OUT &UnProjVC, IN &m_vecSphere2[i].vCenter, NULL,
-			&m_pCamera->GetMatProj(), &m_pCamera->GetMatView(), NULL);
-
-	}
-}*/
 
 void cMainGame::Setup_Frustum()
 {
@@ -1112,7 +1113,7 @@ void cMainGame::Particle_Render()
 
 	g_pD3DDevice->SetRenderState(D3DRS_POINTSPRITEENABLE, true);
 	g_pD3DDevice->SetRenderState(D3DRS_POINTSIZE_MIN, FtoDw(0.0f));
-	g_pD3DDevice->SetRenderState(D3DRS_POINTSIZE_MAX, FtoDw(100.0f));
+	g_pD3DDevice->SetRenderState(D3DRS_POINTSIZE_MAX, FtoDw(30.0f));
 
 	g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	g_pD3DDevice->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
@@ -1135,4 +1136,26 @@ void cMainGame::Particle_Render()
 	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
 	g_pD3DDevice->SetRenderState(D3DRS_ALPHABLENDENABLE, false);
 	g_pD3DDevice->SetRenderState(D3DRS_ZWRITEENABLE, true);
+
+	g_pD3DDevice->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTOP_SELECTARG1);
+}
+
+void cMainGame::SetBillboard()
+{
+	D3DXMATRIXA16 matBillboard, matView;
+	D3DXMatrixIdentity(&matBillboard);
+	g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+
+	matBillboard._11 = matView._11;
+	matBillboard._13 = matView._13;
+	matBillboard._31 = matView._31;
+	matBillboard._33 = matView._33;
+
+	D3DXMATRIXA16 matT;
+	D3DXMatrixIdentity(&matT);
+	D3DXMatrixTranslation(&matT, 1, 0, -3);
+	matBillboard *= matT;
+
+	D3DXMatrixInverse(&matBillboard, NULL, &matBillboard);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matBillboard);
 }

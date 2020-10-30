@@ -1,0 +1,362 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="cCamera" Collapsed="true">
+    <Position X="18.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAgGAGggBCAAAAAAABAAgQBAAAAAAAAAAQACAABA=</HashCode>
+      <FileName>cCamera.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cCharacter" Collapsed="true">
+    <Position X="0.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAACCCAAAAAAIBBAAAAAAAAAAAAAIBAAAAAAEAA=</HashCode>
+      <FileName>cCharacter.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cCubeMan" Collapsed="true">
+    <Position X="0.75" Y="7.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAACIAIAAAAQAAAAAAAAAAAAAAAEBIAAAAAAAA=</HashCode>
+      <FileName>cCubeMan.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cCubeNode" Collapsed="true">
+    <Position X="6.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAACAACAAAEAAAAAAAEAAAAABAAEAAABAAAhAAJAA=</HashCode>
+      <FileName>cCubeNode.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cCubePC" Collapsed="true">
+    <Position X="20" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAREAAACGCAAAAAAAAAAAAAAAAAAAAAAIhAAAAAAEAA=</HashCode>
+      <FileName>cCubePC.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cCubePNT" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAIAAAGAAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAQA=</HashCode>
+      <FileName>cCubePNT.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cDeviceManager" Collapsed="true">
+    <Position X="21.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAQAAAAAAAAAAAAAAAAAABAAAkAAAAAAAAAAAA=</HashCode>
+      <FileName>cDeviceManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cGrid" Collapsed="true">
+    <Position X="18.25" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAGAAAAAAgABAAAAAgBAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>cGrid.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cPyramid" Collapsed="true">
+    <Position X="18.25" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAGAAAAAAAAYAAAAAACAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>cPyramid.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UISprite" Collapsed="true">
+    <Position X="6" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQAAGAEAAAgEAgAAAAAABAQAABAAEAIABEAYgAAAAE=</HashCode>
+      <FileName>UISprite.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="XFileLoader" Collapsed="true">
+    <Position X="14.75" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAACBEAAAAAAAAAgQAAAAAQAAgAAAAAAAAAAAA=</HashCode>
+      <FileName>XFileLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Button_B" Collapsed="true">
+    <Position X="6" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAACAAAAgiAAABIAAAAAQAEEAAAAAAQAAEAAA=</HashCode>
+      <FileName>Button_B.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cBody" Collapsed="true">
+    <Position X="3.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAQAAAAAAAAAAAAAAQAAAAA=</HashCode>
+      <FileName>cBody.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cHead" Collapsed="true">
+    <Position X="5.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAgAAAAAAAAAAAAAAQAAAAAAA=</HashCode>
+      <FileName>cHead.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cLeftArm" Collapsed="true">
+    <Position X="7.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAACAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAA=</HashCode>
+      <FileName>cLeftArm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cLeftLeg" Collapsed="true">
+    <Position X="10" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAKAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cLeftLeg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cRightArm" Collapsed="true">
+    <Position X="12.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAIAA=</HashCode>
+      <FileName>cRightArm.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cRightLeg" Collapsed="true">
+    <Position X="1" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAQACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cRightLeg.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cGroup" Collapsed="true">
+    <Position X="3" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAAAAAgAAAAAAEBAAAAAAAAQ=</HashCode>
+      <FileName>cGroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cMtlTex" Collapsed="true">
+    <Position X="5.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAEAAAAAAAAAQAAAAgAQAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cMtlTex.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cObject" Collapsed="true">
+    <Position X="4" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIBAAAAEAAAAAAAAAAAAEAAAAAABAAAAA=</HashCode>
+      <FileName>cObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cObjectManager" Collapsed="true">
+    <Position X="14.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAABABAAAEAEAAAAAAAAAA=</HashCode>
+      <FileName>cObjectManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cObjLoader" Collapsed="true">
+    <Position X="16.5" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BACAgAAABAAAAAQAAAAAAAAAAAAAAgAAAAAAAEAAAAA=</HashCode>
+      <FileName>cObjLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cTextureManager" Collapsed="true">
+    <Position X="16.5" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACAAAAAAAAgAAAAAAAAABAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>cTextureManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cObjMap" Collapsed="true">
+    <Position X="2.75" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgBAAAAACAAAAAAAAgABAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>cObjMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="iMap" Collapsed="true">
+    <Position X="1.75" Y="10.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>iMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cAseLoader" Collapsed="true">
+    <Position X="16.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CBAAoQAAACAARIACAwgQcQAAgARAAgACAAiBAAoIAIA=</HashCode>
+      <FileName>cAseLoader.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cFrame" Collapsed="true">
+    <Position X="7.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoQAAAAAAAEQFAAAAgAAQACAAgRAAAgACBACAAAACIA=</HashCode>
+      <FileName>cFrame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cRay" Collapsed="true">
+    <Position X="20" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAACEAAAQAAAABAAQAAAAAAAAAgAACAIAA=</HashCode>
+      <FileName>cRay.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cHeightMap" Collapsed="true">
+    <Position X="0.5" Y="11.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAGIEIBAAAAAAAAABAAABAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>cHeightMap.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cAllocateHierarchy" Collapsed="true" BaseTypeListCollapsed="true">
+    <Position X="14.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACBAAAIAAAAAAAAAAAQAAAAABAkAAAAAAAAAAAA=</HashCode>
+      <FileName>cAllocateHierarchy.h</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="cSkinnedMesh" Collapsed="true">
+    <Position X="21.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAhCGACABAgAAAAAAABIAAAABAAEABDBIgAAQACAA=</HashCode>
+      <FileName>cSkinnedMesh.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cSkinnedMeshManager" Collapsed="true">
+    <Position X="14.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAABAAAEBAAAAAAAAAAE=</HashCode>
+      <FileName>cSkinnedMeshManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cTimeManager" Collapsed="true">
+    <Position X="18.25" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAEAAAAAAAAAAAAAEDAAAAAAAEAAA=</HashCode>
+      <FileName>cTimeManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cFrustum" Collapsed="true">
+    <Position X="16.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACAAACAAAAAAAEAAAAAAAAQAACAAAAACAAAAAAAI=</HashCode>
+      <FileName>cFrustum.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cOBB" Collapsed="true">
+    <Position X="21.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAQAACAEAAAAAAIAAAEAAACACAEAEAAgEAQAAICA=</HashCode>
+      <FileName>cOBB.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cZealot" Collapsed="true">
+    <Position X="20" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAIACBAAAgQAAAAAAAAAAgAAAAAAABAAAAAAAAA=</HashCode>
+      <FileName>cZealot.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Button_A" Collapsed="true">
+    <Position X="8.25" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAAACAAAAggAAAAAAAAAAQAAEAAAAAAQAQEAAA=</HashCode>
+      <FileName>Button_A.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cFontManager" Collapsed="true">
+    <Position X="14.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAQAAAAAAAAAhAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>cFontManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="cMainGame" Collapsed="true">
+    <Position X="20" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AoQIJDMhHfAUoNgTARTYYiEAQWAgIgLNMDU4cExDgQU=</HashCode>
+      <FileName>cMainGame.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PopUp" Collapsed="true">
+    <Position X="3.75" Y="8.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAIAA=</HashCode>
+      <FileName>PopUp.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PopUpUI" Collapsed="true">
+    <Position X="21.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AIQEACAAAAAAAAgAAAAAAAAAAAAACAAAABIAQAAAIAA=</HashCode>
+      <FileName>PopUpUI.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="ST_PC_VERTEX" Collapsed="true">
+    <Position X="18.25" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAEAAAAAAAAA=</HashCode>
+      <FileName>stdafx.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ST_PNT_VERTEX" Collapsed="true">
+    <Position X="21.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEQAAAAAAAA=</HashCode>
+      <FileName>stdafx.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ST_PT_VERTEX" Collapsed="true">
+    <Position X="16.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEQAAAAAAAA=</HashCode>
+      <FileName>stdafx.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ST_PN_VERTEX" Collapsed="true">
+    <Position X="20" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEAAAAAAAAA=</HashCode>
+      <FileName>stdafx.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ST_POS_SAMPLE" Collapsed="true">
+    <Position X="14.75" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAEBAAAAAAAAA=</HashCode>
+      <FileName>stdafx.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ST_ROT_SAMPLE" Collapsed="true">
+    <Position X="18.25" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAECAAAAAAAAA=</HashCode>
+      <FileName>stdafx.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ST_SPHERE" Collapsed="true">
+    <Position X="20" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAAgAAAAGAAAAAAAAAAAAA=</HashCode>
+      <FileName>stdafx.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ST_BONE" Collapsed="true">
+    <Position X="14.75" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAA=</HashCode>
+      <FileName>cAllocateHierarchy.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="ST_BONE_MESH" Collapsed="true">
+    <Position X="16.5" Y="5.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAADAAAAAAAAAAAAAAAQAACAAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>cAllocateHierarchy.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Font Name="Malgun Gothic" Size="9" />
+</ClassDiagram>
