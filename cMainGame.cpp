@@ -104,7 +104,9 @@ bool cMainGame::LoadAssets()
 	// : texture
 
 	// : shader
-	m_pShader = LoadShader("Shader/TextureMapping.fx");
+	//m_pShader = LoadShader("Shader/ColorShader.fx");
+	//m_pShader = LoadShader("Shader/TextureMapping.fx");
+	m_pShader = LoadShader("Shader/SpecularMapping.fx");
 	if (!m_pShader) return false;
 	
 	// : model
@@ -257,7 +259,7 @@ void cMainGame::Render()
 	if (m_pGrid)
 		m_pGrid->Render();
 
-	Particle_Render();
+	//Particle_Render();
 	
 	MultiTexture_Render();
 
@@ -828,7 +830,12 @@ void cMainGame::SkinnedMesh_Render()
 		m_pShader->SetMatrix("gViewMatrix", &matView);
 		m_pShader->SetMatrix("gProjectionMatrix", &matProjection);
 		D3DXCOLOR	color(1, 1, 0, 1);
-		m_pShader->SetValue("gColor", &color, sizeof(D3DXVECTOR4));
+		//m_pShader->SetValue("gColor1", &color, sizeof(D3DXVECTOR4));
+		m_pShader->SetVector("gLightColor", &D3DXVECTOR4(0.7f, 0.7f, 1.0f, 1.0f));
+		m_pShader->SetTexture("DiffuseMap_Tex",
+			g_pTextureManager->GetTexture("image/brick_01-2.png"));
+		m_pShader->SetTexture("SpecularMap_Tex",
+			g_pTextureManager->GetTexture("Texture/Earth.jpg"));
 
 		UINT numPasses = 0;
 		m_pShader->Begin(&numPasses, NULL);

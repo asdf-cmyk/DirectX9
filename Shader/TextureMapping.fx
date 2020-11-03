@@ -37,7 +37,7 @@ struct VS_OUTPUT
 float4x4 gWorldMatrix : World;
 float4x4 gViewMatrix : View;
 float4x4 gProjectionMatrix : Projection;
-float4 gColor;
+float4 gColor1;
 
 VS_OUTPUT TextureMapping_Pass_0_Vertex_Shader_vs_main(VS_INPUT Input)
 {
@@ -72,7 +72,7 @@ float4 TextureMapping_Pass_0_Pixel_Shader_ps_main(PS_INPUT Input) : COLOR
 	   albedo = 1;
    else if (0.49f < Input.mTexCoord.y && Input.mTexCoord.y < 0.50f)
 	   //albedo = float4(1, 0, 0, 1);
-	   albedo = gColor;
+	   albedo = gColor1;
    else if (0.74f < Input.mTexCoord.y && Input.mTexCoord.y < 0.75f)
       albedo = 1;
       
@@ -99,4 +99,3 @@ technique TextureMapping
    }
 
 }
-
