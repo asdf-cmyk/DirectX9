@@ -112,6 +112,9 @@ private :
 	LPDIRECT3DTEXTURE9		m_pTex3;
 	vector<ST_PT_VERTEX>	m_vecVertex_Multi;
 	// << :
+	LPDIRECT3DTEXTURE9		m_pDiffuseMap1;
+	LPDIRECT3DTEXTURE9		m_pDiffuseMap2;
+	LPDIRECT3DTEXTURE9		m_pAlphaMap;
 
 	vector<ST_SPHERE>		m_vecSphere2;
 
@@ -119,6 +122,8 @@ public :
 	void Setup_MultiTexture();
 	void Update_MultiTexture();
 	void MultiTexture_Render();
+	void MultiTexture_Render99();
+	void Setup_Fog();
 
 	void MultiTexture_Render1();
 	void MultiTexture_Render2();

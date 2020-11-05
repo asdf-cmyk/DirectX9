@@ -26,5 +26,6 @@ public :
 	D3DXMATRIXA16 GetMatProj() { return matProj; }
 	D3DXMATRIXA16 GetMatView() { return matView; }
 	D3DXVECTOR3 GetEye() { return m_vEye; }
+	D3DXVECTOR3& GetPosition() { return m_vEye; }
 };
 

@@ -55,6 +55,9 @@ cMainGame::cMainGame()
 	, m_pTex3(NULL)
 	, m_nType(-1)
 	, m_pShader(NULL)
+	, m_pDiffuseMap1(NULL)
+	, m_pDiffuseMap2(NULL)
+	, m_pAlphaMap(NULL)
 {
 }
 
@@ -83,6 +86,13 @@ cMainGame::~cMainGame()
 	SafeRelease(m_pSprite);
 	SafeRelease(m_pTextureUI);
 	SafeRelease(m_pShader);
+	SafeRelease(m_pDiffuseMap1);
+	SafeRelease(m_pDiffuseMap2);
+	SafeRelease(m_pAlphaMap);
+	SafeRelease(m_pTex0);
+	SafeRelease(m_pTex1);
+	SafeRelease(m_pTex2);
+	SafeRelease(m_pTex3);
 
 	for each(auto p in m_vecObjMtlTex)
 		SafeRelease(p); 
@@ -106,7 +116,8 @@ bool cMainGame::LoadAssets()
 	// : shader
 	//m_pShader = LoadShader("Shader/ColorShader.fx");
 	//m_pShader = LoadShader("Shader/TextureMapping.fx");
-	m_pShader = LoadShader("Shader/SpecularMapping.fx");
+	//m_pShader = LoadShader("Shader/SpecularMapping.fx");
+	m_pShader = LoadShader("Shader/Splatting.fx");
 	if (!m_pShader) return false;
 	
 	// : model
@@ -256,12 +267,14 @@ void cMainGame::Render()
 
 	g_pD3DDevice->BeginScene();
 
+	Setup_Fog();
 	if (m_pGrid)
 		m_pGrid->Render();
+	g_pD3DDevice->SetRenderState(D3DRS_FOGENABLE, false);
 
 	//Particle_Render();
 	
-	MultiTexture_Render();
+	MultiTexture_Render99();
 
 	//OBB_Render();
 
@@ -290,7 +303,7 @@ void cMainGame::Render()
 	}*/
 
 	//m_pXFileLoader->Display();
-	SkinnedMesh_Render();
+	//SkinnedMesh_Render();
 
 	UI_Render();
 
@@ -469,6 +482,10 @@ void cMainGame::Setup_MultiTexture()
 	D3DXCreateTextureFromFile(g_pD3DDevice, L"Texture/env1.png", &m_pTex2);
 	D3DXCreateTextureFromFile(g_pD3DDevice, L"Texture/Albedo00.jpg", &m_pTex3);
 
+	D3DXCreateTextureFromFile(g_pD3DDevice, L"Texture/Albedo00.jpg", &m_pDiffuseMap1);
+	D3DXCreateTextureFromFile(g_pD3DDevice, L"Texture/stones.png", &m_pDiffuseMap2);
+	D3DXCreateTextureFromFile(g_pD3DDevice, L"Texture/env1.png", &m_pAlphaMap);
+
 	ST_PT_VERTEX v;
 	v.p = D3DXVECTOR3(0, 0, 0); v.t = D3DXVECTOR2(0, 1); m_vecVertex_Multi.push_back(v);
 	v.p = D3DXVECTOR3(0, 2, 0); v.t = D3DXVECTOR2(0, 0); m_vecVertex_Multi.push_back(v);
@@ -544,6 +561,63 @@ void cMainGame::MultiTexture_Render()
 	g_pD3DDevice->SetTextureStageState(2, D3DTSS_COLOROP, D3DTOP_DISABLE);
 	g_pD3DDevice->SetTextureStageState(1, D3DTSS_RESULTARG, D3DTA_CURRENT);
 	g_pD3DDevice->SetTextureStageState(2, D3DTSS_RESULTARG, D3DTA_CURRENT);
+}
+
+void cMainGame::MultiTexture_Render99()
+{
+	g_pD3DDevice->SetRenderState(D3DRS_LIGHTING, true);
+	D3DXMATRIXA16 matWorld;
+	D3DXMatrixIdentity(&matWorld);
+	g_pD3DDevice->SetTransform(D3DTS_WORLD, &matWorld);
+
+	if (m_pShader)
+	{
+		D3DXMATRIXA16 matView, matProjection;
+		g_pD3DDevice->GetTransform(D3DTS_VIEW, &matView);
+		g_pD3DDevice->GetTransform(D3DTS_PROJECTION, &matProjection);
+		m_pShader->SetMatrix("gWorldMatrix", &matWorld);
+		m_pShader->SetMatrix("gViewMatrix", &matView);
+		m_pShader->SetMatrix("gProjectionMatrix", &matProjection);
+		m_pShader->SetVector("gWorldCameraPosition",
+			&D3DXVECTOR4(m_pCamera->GetPosition(), 1.0f));
+		
+		D3DXCOLOR	color(0.7f, 0.7f, 0.7f, 1.0f);
+		//m_pShader->SetValue("gColor1", &color, sizeof(D3DXVECTOR4));
+		m_pShader->SetValue("gLightColor", &color, sizeof(D3DXCOLOR));
+		m_pShader->SetTexture("DiffuseMap_Tex1", m_pDiffuseMap1);
+		m_pShader->SetTexture("DiffuseMap_Tex2", m_pDiffuseMap2);
+		m_pShader->SetTexture("AlphaMap_Tex", m_pAlphaMap);
+	}
+
+	SetBillboard();
+
+	UINT numPasses = 0;
+	m_pShader->Begin(&numPasses, NULL);
+	{
+		for (UINT i = 0; i < numPasses; ++i)
+		{
+			m_pShader->BeginPass(i);
+			{
+				g_pD3DDevice->SetFVF(ST_PT_VERTEX::FVF);
+				g_pD3DDevice->DrawPrimitiveUP(D3DPT_TRIANGLELIST,
+					m_vecVertex_Multi.size() / 3,
+					&m_vecVertex_Multi[0],
+					sizeof(ST_PT_VERTEX));
+			}
+			m_pShader->EndPass();
+		}
+		m_pShader->End();
+	}
+}
+
+void cMainGame::Setup_Fog()
+{
+	g_pD3DDevice->SetRenderState(D3DRS_FOGENABLE, true);
+	g_pD3DDevice->SetRenderState(D3DRS_FOGCOLOR, D3DXCOLOR(255, 255, 0, 125));
+	g_pD3DDevice->SetRenderState(D3DRS_FOGVERTEXMODE, D3DFOG_LINEAR);
+	g_pD3DDevice->SetRenderState(D3DRS_FOGSTART, FtoDw(10.0f));
+	g_pD3DDevice->SetRenderState(D3DRS_FOGEND, FtoDw(200.0f));
+	g_pD3DDevice->SetRenderState(D3DRS_RANGEFOGENABLE, true);
 }
 
 void cMainGame::MultiTexture_Render1()
